@@ -8,6 +8,22 @@
   ],
   "routes": [
     {
+      "src": "/style.css",
+      "dest": "/frontend/style.css"
+    },
+    {
+      "src": "/script.js",
+      "dest": "/frontend/script.js"
+    },
+    {
+      "src": "/admin.css",
+      "dest": "/frontend/admin.css"
+    },
+    {
+      "src": "/admin.js",
+      "dest": "/frontend/admin.js"
+    },
+    {
       "src": "/admin",
       "dest": "/frontend/admin.html"
     },
