@@ -715,3 +715,104 @@ body::before {
 .event-card:nth-child(1) { animation-delay: 0.1s; }
 .event-card:nth-child(2) { animation-delay: 0.2s; }
 .event-card:nth-child(3) { animation-delay: 0.3s; }
+
+/* ==== NOTA ESPECIAL ==== */
+.special-note {
+    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+    border: 2px solid #3b82f6;
+    border-radius: 20px;
+    padding: 25px;
+    margin: 30px 0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 
+        0 10px 30px rgba(30, 64, 175, 0.3),
+        0 0 0 1px rgba(59, 130, 246, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.special-note::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+    animation: shimmer 3s infinite;
+}
+
+.note-icon {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 15px rgba(251, 191, 36, 0.4);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.note-icon i {
+    font-size: 28px;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.note-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.note-label {
+    font-size: 18px;
+    font-weight: 800;
+    color: #fbbf24;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.note-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1.4;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive para la nota especial */
+@media (max-width: 768px) {
+    .special-note {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+        gap: 15px;
+    }
+    
+    .note-icon {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .note-icon i {
+        font-size: 24px;
+    }
+    
+    .note-label {
+        font-size: 16px;
+    }
+    
+    .note-text {
+        font-size: 14px;
+    }
+}
