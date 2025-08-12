@@ -1,0 +1,12 @@
+{
+  "confirmaciones": [],
+  "evento": {
+    "id": 1,
+    "titulo": "¡Te invito a nuestra recibida!",
+    "fecha": "14 de Agosto, 2025",
+    "hora": "22:00",
+    "lugar": "Salón de Eventos",
+    "direccion": "Av. San Martín 1234, San Miguel de Tucumán, Tucumán, Argentina"
+  },
+  "ultimaActualizacion": "2025-01-27T00:00:00.000Z"
+}

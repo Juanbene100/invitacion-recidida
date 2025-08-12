@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Confirmaciones</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-container">
+        <header class="admin-header">
+            <div class="header-top">
+                <h1><i class="fas fa-chart-bar"></i> Panel de Confirmaciones</h1>
+                <a href="index.html" class="btn btn-return">
+                    <i class="fas fa-arrow-left"></i> Volver a la Invitación
+                </a>
+            </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number" id="totalConfirmaciones">0</span>
+                    <span class="stat-label">Total Confirmaciones</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="confirmacionesHoy">0</span>
+                    <span class="stat-label">Hoy</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="admin-toolbar">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Buscar por nombre...">
+            </div>
+            <div class="toolbar-actions">
+                <button id="exportBtn" class="btn btn-secondary">
+                    <i class="fas fa-download"></i> Exportar CSV
+                </button>
+                <button id="refreshBtn" class="btn btn-primary">
+                    <i class="fas fa-sync-alt"></i> Actualizar
+                </button>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th>Confirmación</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="confirmacionesTable">
+                    <!-- Las confirmaciones se cargarán aquí -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="no-data" id="noData" style="display: none;">
+            <i class="fas fa-inbox"></i>
+            <p>No hay confirmaciones aún</p>
+        </div>
+
+        <div class="pagination" id="pagination" style="display: none;">
+            <button id="prevBtn" class="btn btn-secondary">Anterior</button>
+            <span id="pageInfo">Página 1 de 1</span>
+            <button id="nextBtn" class="btn btn-secondary">Siguiente</button>
+        </div>
+    </div>
+
+    <!-- Modal para ver detalles -->
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Detalles de la Confirmación</h2>
+            <div id="modalContent">
+                <!-- Contenido del modal -->
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

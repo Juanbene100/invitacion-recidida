@@ -34,9 +34,45 @@ function enviarFormulario() {
             mostrarMensaje('¡Te amo hermoso! ❤️', 'special');
         } else if (nombre.toLowerCase() === 'aylen') {
             mostrarMensaje('¡Sos el amor de mi vida! 💖', 'special');
+        } else if (nombre.toLowerCase() === 'enzo fernandez' || nombre.toLowerCase() === 'juan pablo benedetti') {
+            // Acceso secreto al panel de administración
+            mostrarMensaje('🔐 Acceso autorizado al panel de administración', 'admin-access');
+            
+            // Redirigir al panel admin después de 2 segundos
+            setTimeout(() => {
+                window.location.href = 'admin.html';
+            }, 2000);
+            
+            // No guardar esta confirmación en la base de datos
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Confirmar Asistencia';
+            return;
         } else {
             mostrarMensaje('¡Confirmación registrada exitosamente!', 'success');
         }
+        
+        // Guardar en la base de datos local
+        const confirmacion = {
+            nombre: nombre,
+            email: document.getElementById('email')?.value || '',
+            telefono: document.getElementById('telefono')?.value || '',
+            mensaje: document.getElementById('mensaje')?.value || ''
+        };
+        
+        // Agregar a la base de datos local
+        if (typeof addConfirmacionToAdmin === 'function') {
+            addConfirmacionToAdmin(confirmacion);
+        }
+        
+        // Guardar en localStorage como respaldo
+        const confirmaciones = JSON.parse(localStorage.getItem('invitacion_confirmaciones') || '[]');
+        confirmaciones.unshift({
+            id: Date.now(),
+            ...confirmacion,
+            fecha: new Date().toISOString(),
+            confirmacion: 'confirmado'
+        });
+        localStorage.setItem('invitacion_confirmaciones', JSON.stringify(confirmaciones));
         
         crearEfectoConfeti();
         form.reset();
