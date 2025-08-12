@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación a mi recibida</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header con icono de confirmación -->
+        <div class="header">
+            <div class="title-container">
+                <div class="celebration-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h1>¡Te invito a nuestra recibida!</h1>
+                <div class="celebration-icon">
+                    <span class="emoji-icon">🎉</span>
+                </div>
+            </div>
+            
+            <!-- Nombres de los anfitriones -->
+            <div class="hosts-names">
+                <h2 class="name-sans">Enzo Fernandez</h2>
+                <div class="star-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3 class="name-sans">Juan Pablo Benedetti</h3>
+            </div>
+        </div>
+
+        <!-- Información del evento -->
+        <div class="event-info">
+            <div class="event-card">
+                <div class="event-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="event-details">
+                    <span class="event-label">FECHA Y HORA</span>
+                    <span class="event-value">13 de Agosto, 2025 - 22:00</span>
+                </div>
+            </div>
+
+            <div class="event-card">
+                <div class="event-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="event-details">
+                    <span class="event-label">LUGAR</span>
+                    <span class="event-value">Quincho El Jakal</span>
+                </div>
+            </div>
+
+            <div class="event-card">
+                <div class="event-icon">
+                    <i class="fas fa-map"></i>
+                </div>
+                <div class="event-details">
+                    <span class="event-label">DIRECCIÓN</span>
+                    <a href="https://maps.google.com/?q=Tomás+Godoy+Cruz+1579,+Tucumán,+Argentina" target="_blank" class="event-value address-link">
+                        Tomás Godoy Cruz 1579, Tucumán
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulario de confirmación -->
+        <form id="confirmForm" class="confirmation-form">
+            <div class="form-group">
+                <label for="nombre">Tu nombre completo</label>
+                <div class="input-container">
+                    <input type="text" id="nombre" name="nombre" placeholder="Escribe tu nombre aqui" required>
+                    <div class="input-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group checkbox-group">
+                <label class="checkbox-container">
+                    <input type="checkbox" id="confirmar" required>
+                    <span class="checkmark"></span>
+                    <span class="checkbox-text">¡Confirmo mi asistencia con gusto!</span>
+                </label>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                <i class="fas fa-paper-plane"></i>
+                Confirmar Asistencia
+            </button>
+        </form>
+
+        <!-- Mensaje de confirmación -->
+        <div id="mensaje" class="message"></div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>¡Esperamos compartir este día tan especial contigo! 🎉</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

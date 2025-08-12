@@ -1,0 +1,37 @@
+{
+  "name": "sistema-invitaciones-completo",
+  "version": "1.0.0",
+  "description": "Sistema completo de invitaciones con frontend y backend separados",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "cd backend && npm start",
+    "dev": "cd backend && npm run dev",
+    "install:all": "npm install && cd backend && npm install",
+    "setup": "npm run install:all && echo \"✅ Todas las dependencias instaladas\"",
+    "db:init": "cd backend && npm run db:init",
+    "db:backup": "cd backend && npm run db:backup"
+  },
+  "keywords": [
+    "invitaciones",
+    "graduacion",
+    "eventos",
+    "nodejs",
+    "sqlite",
+    "express",
+    "frontend",
+    "backend"
+  ],
+  "author": "Tu Nombre",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tuusuario/sistema-invitaciones.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tuusuario/sistema-invitaciones/issues"
+  },
+  "homepage": "https://github.com/tuusuario/sistema-invitaciones#readme"
+}
