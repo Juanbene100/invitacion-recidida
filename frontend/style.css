@@ -790,6 +790,90 @@ body::before {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
+/* Enlace de la UNSTA */
+.unsta-link {
+    color: #fbbf24;
+    text-decoration: none;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 8px;
+    background: rgba(251, 191, 36, 0.2);
+    border: 1px solid rgba(251, 191, 36, 0.4);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.unsta-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.unsta-link:hover {
+    color: #ffffff;
+    background: rgba(251, 191, 36, 0.4);
+    border-color: rgba(251, 191, 36, 0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+}
+
+.unsta-link:hover::before {
+    left: 100%;
+}
+
+.unsta-link:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(251, 191, 36, 0.3);
+}
+
+/* Enlace de Maps */
+.maps-link {
+    color: #60a5fa;
+    text-decoration: none;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 8px;
+    background: rgba(96, 165, 250, 0.2);
+    border: 1px solid rgba(96, 165, 250, 0.4);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.maps-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.maps-link:hover {
+    color: #ffffff;
+    background: rgba(96, 165, 250, 0.4);
+    border-color: rgba(96, 165, 250, 0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+}
+
+.maps-link:hover::before {
+    left: 100%;
+}
+
+.maps-link:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(96, 165, 250, 0.3);
+}
+
 /* Responsive para la nota especial */
 @media (max-width: 768px) {
     .special-note {
