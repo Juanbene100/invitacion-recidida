@@ -1,282 +1,185 @@
-// Esperar a que el DOM esté completamente cargado
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('confirmForm');
-    const nombreInput = document.getElementById('nombre');
-    const confirmarCheckbox = document.getElementById('confirmar');
-    const mensajeDiv = document.getElementById('mensaje');
-    const submitBtn = document.querySelector('.submit-btn');
+// ==== SCRIPT PARA INVITACIÓN ====
 
-    const nombresSugeridos = [
-        'Tete', 'Arturo', 'Juan Pablo', 'Jorge Ariel', 'Mirtha Gladys',
-        'María', 'Carlos', 'Ana', 'Luis', 'Sofía', 'Diego', 'Valentina',
-        'Javier', 'Camila', 'Roberto', 'Patricia', 'Fernando', 'Lucía'
-    ];
+// Nombres sugeridos para autocompletado
+const nombresSugeridos = [
+    'María González',
+    'Carlos Rodríguez',
+    'Ana Martínez',
+    'Luis Fernández',
+    'Sofia López',
+    'Diego Pérez',
+    'Valentina Torres',
+    'Matías Silva',
+    'Camila Vargas',
+    'Nicolás Morales'
+];
 
-    let sugerenciasList = null;
+// Elementos del DOM
+const form = document.getElementById('confirmacionForm');
+const nombreInput = document.getElementById('nombre');
+const submitBtn = document.getElementById('submitBtn');
+const mensajeDiv = document.getElementById('mensaje');
 
-    // Función para mostrar sugerencias de nombres
-    function mostrarSugerencias(valor) {
-        if (sugerenciasList) {
-            sugerenciasList.remove();
-            sugerenciasList = null;
-        }
+// ==== FUNCIONES PRINCIPALES ====
 
-        if (valor.length < 2) return;
+// Función para mostrar mensajes
+function mostrarMensaje(texto, tipo) {
+    mensajeDiv.textContent = texto;
+    mensajeDiv.className = `mensaje ${tipo}`;
+    mensajeDiv.style.display = 'block';
+    
+    setTimeout(() => {
+        mensajeDiv.style.display = 'none';
+    }, 5000);
+}
 
-        const sugerencias = nombresSugeridos.filter(nombre => 
-            nombre.toLowerCase().includes(valor.toLowerCase())
-        );
+// Función para crear efecto de confeti
+function crearEfectoConfeti() {
+    const confetti = document.createElement('div');
+    confetti.className = 'confetti';
+    confetti.style.left = Math.random() * 100 + 'vw';
+    confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+    confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 50%)`;
+    
+    document.body.appendChild(confetti);
+    
+    setTimeout(() => {
+        confetti.remove();
+    }, 5000);
+}
 
-        if (sugerencias.length === 0) return;
-
-        sugerenciasList = document.createElement('ul');
-        sugerenciasList.className = 'sugerencias-lista';
-        sugerenciasList.style.cssText = `
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: rgba(30, 41, 59, 0.95);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 10px;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            z-index: 1000;
-            max-height: 200px;
-            overflow-y: auto;
-            backdrop-filter: blur(10px);
-        `;
-
-        sugerencias.forEach(sugerencia => {
-            const li = document.createElement('li');
-            li.textContent = sugerencia;
-            li.style.cssText = `
-                padding: 12px 15px;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                border-bottom: 1px solid rgba(59, 130, 246, 0.1);
-            `;
-            
-            li.addEventListener('mouseenter', () => {
-                li.style.background = 'rgba(59, 130, 246, 0.2)';
-            });
-            
-            li.addEventListener('mouseleave', () => {
-                li.style.background = 'transparent';
-            });
-            
-            li.addEventListener('click', () => {
-                nombreInput.value = sugerencia;
-                sugerenciasList.remove();
-                sugerenciasList = null;
-            });
-            
-            sugerenciasList.appendChild(li);
-        });
-
-        nombreInput.parentNode.style.position = 'relative';
-        nombreInput.parentNode.appendChild(sugerenciasList);
+// Función para manejar el envío del formulario
+async function enviarFormulario(e) {
+    e.preventDefault();
+    
+    const nombre = nombreInput.value.trim();
+    
+    if (!nombre) {
+        mostrarMensaje('Por favor, ingresa tu nombre', 'error');
+        return;
     }
-
-    // Event listeners para sugerencias
-    nombreInput.addEventListener('input', function() {
-        mostrarSugerencias(this.value);
-    });
-
-    // Cerrar sugerencias al hacer clic fuera
-    document.addEventListener('click', function(e) {
-        if (sugerenciasList && !nombreInput.parentNode.contains(e.target)) {
-            sugerenciasList.remove();
-            sugerenciasList = null;
-        }
-    });
-
-    // Función para mostrar mensajes
-    function mostrarMensaje(texto, tipo) {
-        mensajeDiv.textContent = texto;
-        mensajeDiv.className = `message ${tipo} show`;
+    
+    // Deshabilitar botón durante envío
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+    
+    try {
+        // Simular envío exitoso (para Vercel)
+        await new Promise(resolve => setTimeout(resolve, 1000));
         
-        setTimeout(() => {
-            mensajeDiv.classList.remove('show');
-        }, 5000);
-    }
-
-    // Función para validar el formulario
-    function validarFormulario() {
-        const nombre = nombreInput.value.trim();
-        const confirmado = confirmarCheckbox.checked;
-
-        if (!nombre) {
-            mostrarMensaje('Por favor, ingresa tu nombre completo', 'error');
-            nombreInput.focus();
-            return false;
-        }
-
-        if (!confirmado) {
-            mostrarMensaje('Debes confirmar tu asistencia para continuar', 'error');
-            confirmarCheckbox.focus();
-            return false;
-        }
-
-        return true;
-    }
-
-    // Función para enviar el formulario a la API
-    async function enviarFormulario() {
-        const nombre = nombreInput.value.trim();
+        // Guardar en localStorage
+        const confirmaciones = JSON.parse(localStorage.getItem('confirmaciones') || '[]');
+        const nuevaConfirmacion = {
+            id: Date.now(),
+            nombre: nombre,
+            fecha: new Date().toISOString(),
+            estado: 'confirmed'
+        };
         
-        // Cambiar estado del botón
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
-
-        try {
-            const response = await fetch('/api/confirmaciones', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    nombre: nombre,
-                    estado: 'confirmed'
-                })
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                mostrarMensaje(data.message, 'success');
-                crearEfectoConfeti();
-                
-                // Limpiar formulario
-                form.reset();
-                nombreInput.focus();
-            } else {
-                mostrarMensaje(data.error || 'Error al enviar la confirmación', 'error');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            mostrarMensaje('Error de conexión. Intenta nuevamente.', 'error');
-        } finally {
-            // Restaurar estado del botón
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Confirmar Asistencia';
-        }
-    }
-
-    // Función para crear efecto de confeti
-    function crearEfectoConfeti() {
-        const confetiContainer = document.createElement('div');
-        confetiContainer.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9999;
-        `;
-        document.body.appendChild(confetiContainer);
-
-        const colores = ['#3b82f6', '#1d4ed8', '#fbbf24', '#22c55e', '#ef4444'];
+        confirmaciones.push(nuevaConfirmacion);
+        localStorage.setItem('confirmaciones', JSON.stringify(confirmaciones));
         
-        for (let i = 0; i < 50; i++) {
-            setTimeout(() => {
-                const confeti = document.createElement('div');
-                confeti.style.cssText = `
-                    position: absolute;
-                    width: 10px;
-                    height: 10px;
-                    background: ${colores[Math.floor(Math.random() * colores.length)]};
-                    left: ${Math.random() * 100}%;
-                    top: -10px;
-                    animation: confetiFall 3s linear forwards;
-                    border-radius: 2px;
-                `;
-                confetiContainer.appendChild(confeti);
-                
-                setTimeout(() => {
-                    confeti.remove();
-                }, 3000);
-            }, i * 50);
-        }
-
-        setTimeout(() => {
-            confetiContainer.remove();
-        }, 4000);
+        // Mostrar mensaje de éxito
+        mostrarMensaje('¡Confirmación registrada exitosamente!', 'success');
+        crearEfectoConfeti();
+        
+        // Limpiar formulario
+        form.reset();
+        nombreInput.focus();
+        
+        // Actualizar contador
+        actualizarContador();
+        
+    } catch (error) {
+        console.error('Error:', error);
+        mostrarMensaje('Error al enviar la confirmación', 'error');
+    } finally {
+        // Restaurar botón
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Confirmar Asistencia';
     }
+}
 
-    // Agregar estilos CSS para el confeti
-    const confetiStyle = document.createElement('style');
-    confetiStyle.textContent = `
-        @keyframes confetiFall {
-            0% {
-                transform: translateY(-10px) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(720deg);
-                opacity: 0;
-            }
-        }
-    `;
-    document.head.appendChild(confetiStyle);
-
-    // Event listener para el envío del formulario
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        if (validarFormulario()) {
-            enviarFormulario();
-        }
-    });
-
-    // Efectos de focus/blur para el input
-    nombreInput.addEventListener('focus', function() {
-        this.parentNode.style.transform = 'scale(1.02)';
-    });
-
-    nombreInput.addEventListener('blur', function() {
-        this.parentNode.style.transform = 'scale(1)';
-    });
-
-    // Animaciones de entrada con Intersection Observer
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    // Aplicar animaciones a elementos
-    document.querySelectorAll('.event-card, .form-group, .submit-btn').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-    });
-
-    // Función para obtener estadísticas en tiempo real (opcional)
-    async function actualizarEstadisticas() {
-        try {
-            const response = await fetch('/api/estadisticas');
-            const data = await response.json();
-            
-            if (response.ok && data.success) {
-                // Aquí podrías actualizar algún contador en la página
-                console.log('Estadísticas actualizadas:', data.data);
-            }
-        } catch (error) {
-            console.error('Error al obtener estadísticas:', error);
-        }
+// Función para actualizar contador de confirmaciones
+function actualizarContador() {
+    const confirmaciones = JSON.parse(localStorage.getItem('confirmaciones') || '[]');
+    const contadorElement = document.getElementById('contadorConfirmaciones');
+    
+    if (contadorElement) {
+        contadorElement.textContent = confirmaciones.length;
     }
+}
 
-    // Actualizar estadísticas cada 30 segundos (opcional)
-    setInterval(actualizarEstadisticas, 30000);
+// Función para autocompletar nombres
+function autocompletarNombre() {
+    const valor = nombreInput.value.toLowerCase();
+    const sugerencias = nombresSugeridos.filter(nombre => 
+        nombre.toLowerCase().includes(valor)
+    );
+    
+    // Aquí podrías mostrar sugerencias en un dropdown
+    // Por ahora solo actualizamos el placeholder
+    if (sugerencias.length > 0 && valor.length > 2) {
+        nombreInput.placeholder = `Sugerencia: ${sugerencias[0]}`;
+    } else {
+        nombreInput.placeholder = 'Escribe tu nombre aqui';
+    }
+}
+
+// ==== EVENT LISTENERS ====
+
+// Envío del formulario
+form.addEventListener('submit', enviarFormulario);
+
+// Autocompletado en tiempo real
+nombreInput.addEventListener('input', autocompletarNombre);
+
+// ==== INICIALIZACIÓN ====
+
+// Actualizar contador al cargar
+document.addEventListener('DOMContentLoaded', () => {
+    actualizarContador();
+    
+    // Agregar clase para animación de entrada
+    document.body.classList.add('loaded');
 });
+
+// ==== ANIMACIONES DE SCROLL ====
+
+// Intersection Observer para animaciones
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('animate');
+        }
+    });
+}, observerOptions);
+
+// Observar elementos para animar
+document.querySelectorAll('.event-details, .hosts-names, .confirmation-form').forEach(el => {
+    observer.observe(el);
+});
+
+// ==== FUNCIONES DE UTILIDAD ====
+
+// Función debounce para optimizar búsqueda
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Aplicar debounce al autocompletado
+const debouncedAutocompletar = debounce(autocompletarNombre, 300);
+nombreInput.addEventListener('input', debouncedAutocompletar);

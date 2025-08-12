@@ -130,8 +130,7 @@ class Database {
     createConfirmacion(data) {
         return new Promise((resolve, reject) => {
             const sql = `
-                INSERT INTO confirmaciones 
-                (nombre, email, telefono, estado, ip, user_agent, comentarios)
+                INSERT INTO confirmaciones (nombre, email, telefono, estado, ip, user_agent, comentarios)
                 VALUES (?, ?, ?, ?, ?, ?, ?)
             `;
             
@@ -139,7 +138,7 @@ class Database {
                 data.nombre,
                 data.email || null,
                 data.telefono || null,
-                data.estado || 'pending',
+                data.estado || 'confirmed',
                 data.ip || null,
                 data.user_agent || null,
                 data.comentarios || null
@@ -151,7 +150,7 @@ class Database {
                     this.logAction('CREATE', 'confirmaciones', this.lastID, null, JSON.stringify(data));
                     resolve({ id: this.lastID, ...data });
                 }
-            });
+            }.bind(this));
         });
     }
 
@@ -241,7 +240,7 @@ class Database {
                         this.logAction('UPDATE', 'confirmaciones', id, JSON.stringify(oldData), JSON.stringify(data));
                         resolve({ id, ...data });
                     }
-                });
+                }.bind(this));
             }).catch(reject);
         });
     }
@@ -260,7 +259,7 @@ class Database {
                         this.logAction('DELETE', 'confirmaciones', id, JSON.stringify(oldData), null);
                         resolve({ id });
                     }
-                });
+                }.bind(this));
             }).catch(reject);
         });
     }

@@ -69,33 +69,39 @@
         </div>
 
         <!-- Formulario de confirmación -->
-        <form id="confirmForm" class="confirmation-form">
-            <div class="form-group">
-                <label for="nombre">Tu nombre completo</label>
-                <div class="input-container">
-                    <input type="text" id="nombre" name="nombre" placeholder="Escribe tu nombre aqui" required>
-                    <div class="input-icon">
+        <div class="confirmation-form">
+            <h3>Confirmar Asistencia</h3>
+            <div class="confirmation-stats">
+                <span class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <span id="contadorConfirmaciones">0</span> confirmaciones
+                </span>
+            </div>
+            <form id="confirmacionForm">
+                <div class="form-group">
+                    <label for="nombre">
                         <i class="fas fa-user"></i>
-                    </div>
+                        Tu nombre completo
+                    </label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Escribe tu nombre aqui" required>
                 </div>
-            </div>
-
-            <div class="form-group checkbox-group">
-                <label class="checkbox-container">
-                    <input type="checkbox" id="confirmar" required>
-                    <span class="checkmark"></span>
-                    <span class="checkbox-text">¡Confirmo mi asistencia con gusto!</span>
-                </label>
-            </div>
-
-            <button type="submit" class="submit-btn">
-                <i class="fas fa-paper-plane"></i>
-                Confirmar Asistencia
-            </button>
-        </form>
-
-        <!-- Mensaje de confirmación -->
-        <div id="mensaje" class="message"></div>
+                
+                <div class="form-group">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="confirmar" required>
+                        <span class="checkmark"></span>
+                        ¡Confirmo mi asistencia con gusto!
+                    </label>
+                </div>
+                
+                <button type="submit" id="submitBtn" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    Confirmar Asistencia
+                </button>
+            </form>
+            
+            <div id="mensaje" class="mensaje" style="display: none;"></div>
+        </div>
 
         <!-- Footer -->
         <div class="footer">
