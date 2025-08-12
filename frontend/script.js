@@ -33,7 +33,7 @@ function enviarFormulario() {
         if (nombre.toLowerCase() === 'german') {
             mostrarMensaje('¡Te amo hermoso! ❤️', 'special');
         } else if (nombre.toLowerCase() === 'aylen') {
-            mostrarMensaje('¡Sos el amor de mi vida! 💖', 'love');
+            mostrarMensaje('¡Sos el amor de mi vida! 💖', 'special');
         } else {
             mostrarMensaje('¡Confirmación registrada exitosamente!', 'success');
         }
