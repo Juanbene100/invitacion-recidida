@@ -29,9 +29,11 @@ function enviarFormulario() {
     
     // Simular delay de red
     setTimeout(() => {
-        // Verificar si es German para mensaje especial
+        // Verificar nombres especiales para mensajes únicos
         if (nombre.toLowerCase() === 'german') {
             mostrarMensaje('¡Te amo hermoso! ❤️', 'special');
+        } else if (nombre.toLowerCase() === 'aylen') {
+            mostrarMensaje('¡Sos el amor de mi vida! 💖', 'love');
         } else {
             mostrarMensaje('¡Confirmación registrada exitosamente!', 'success');
         }
