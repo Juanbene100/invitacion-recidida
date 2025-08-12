@@ -1,19 +1,5 @@
 // ==== SCRIPT PRINCIPAL DE LA INVITACIÓN ====
 
-// Nombres sugeridos para autocompletado
-const nombresSugeridos = [
-    'María González',
-    'Carlos Rodríguez',
-    'Ana Martínez',
-    'Luis Fernández',
-    'Sofia López',
-    'Diego Pérez',
-    'Valentina Torres',
-    'Mateo Silva',
-    'Isabella Castro',
-    'Nicolás Morales'
-];
-
 // Elementos del DOM
 const form = document.getElementById('confirmacionForm');
 const nombreInput = document.getElementById('nombre');
@@ -21,30 +7,6 @@ const submitBtn = document.getElementById('submitBtn');
 const mensajeDiv = document.getElementById('mensaje');
 
 // ==== FUNCIONALIDADES ====
-
-// Autocompletado de nombres
-nombreInput.addEventListener('input', function() {
-    const valor = this.value.toLowerCase();
-    const sugerencias = nombresSugeridos.filter(nombre => 
-        nombre.toLowerCase().includes(valor)
-    );
-    
-    if (sugerencias.length > 0 && valor.length > 0) {
-        this.setAttribute('list', 'nombres-sugeridos');
-        const datalist = document.getElementById('nombres-sugeridos') || crearDatalist();
-        datalist.innerHTML = sugerencias.map(nombre => 
-            `<option value="${nombre}">`
-        ).join('');
-    }
-});
-
-// Crear datalist si no existe
-function crearDatalist() {
-    const datalist = document.createElement('datalist');
-    datalist.id = 'nombres-sugeridos';
-    document.body.appendChild(datalist);
-    return datalist;
-}
 
 // Manejar envío del formulario - PREVENIR RECARGA
 form.addEventListener('submit', function(e) {
@@ -67,8 +29,13 @@ function enviarFormulario() {
     
     // Simular delay de red
     setTimeout(() => {
-        // Siempre mostrar éxito
-        mostrarMensaje('¡Confirmación registrada exitosamente!', 'success');
+        // Verificar si es German para mensaje especial
+        if (nombre.toLowerCase() === 'german') {
+            mostrarMensaje('¡Te amo hermoso! ❤️', 'special');
+        } else {
+            mostrarMensaje('¡Confirmación registrada exitosamente!', 'success');
+        }
+        
         crearEfectoConfeti();
         form.reset();
         nombreInput.focus();
