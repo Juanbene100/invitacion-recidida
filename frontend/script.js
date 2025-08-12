@@ -46,14 +46,14 @@ function crearDatalist() {
     return datalist;
 }
 
-// Manejar envío del formulario
+// Manejar envío del formulario - PREVENIR RECARGA
 form.addEventListener('submit', function(e) {
-    e.preventDefault();
+    e.preventDefault(); // Esto es CRUCIAL para evitar recarga
     enviarFormulario();
 });
 
 // Función para enviar formulario (simulada)
-async function enviarFormulario() {
+function enviarFormulario() {
     const nombre = nombreInput.value.trim();
     
     if (!nombre) {
@@ -167,4 +167,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Agregar clase inicial para animación
     document.body.classList.add('loaded');
+    
+    // Verificar que el formulario existe
+    if (form) {
+        console.log('✅ Formulario encontrado y configurado');
+    } else {
+        console.error('❌ Formulario no encontrado');
+    }
 });
